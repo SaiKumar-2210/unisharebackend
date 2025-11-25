@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Razorpay = require('razorpay');
 const cloudinary = require('cloudinary').v2;
-const uuid = require('uuid');
-const uuidv4 = uuid.v4; 
+const crypto = require('crypto');
+// ... rest of the imports ...
 const multer = require('multer');
 
 dotenv.config();
@@ -57,7 +57,7 @@ const connectDB = async () => {
 
 // --- Mongoose Schemas ---
 const userSchema = new mongoose.Schema({
-  id: { type: String, default: uuidv4, unique: true },
+    id: { type: String, default: uuidv4, unique: true },
   email: { type: String, required: true, unique: true },
   password_hash: { type: String }, // Optional for Clerk users
   name: { type: String, required: true },
@@ -69,8 +69,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  id: { type: String, default: uuidv4, unique: true },
-  name: { type: String, required: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },  name: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
   category: { type: String, required: true },
@@ -83,8 +82,7 @@ const productSchema = new mongoose.Schema({
 });
 
 const cartSchema = new mongoose.Schema({
-  id: { type: String, default: uuidv4, unique: true },
-  user_id: { type: String, required: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },  user_id: { type: String, required: true },
   items: [{
     product_id: String,
     quantity: { type: Number, default: 1 }
@@ -93,7 +91,7 @@ const cartSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  id: { type: String, default: uuidv4, unique: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },
   user_id: { type: String, required: true },
   items: { type: Array, required: true },
   total: { type: Number, required: true },
