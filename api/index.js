@@ -515,12 +515,3 @@ module.exports = app;
 
 // ... (Your existing code ending with module.exports = app)
 
-// ADD THIS AT THE VERY BOTTOM FOR LOCAL TESTING
-if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running locally on http://localhost:${PORT}`);
-  });
-}
-
-module.exports = app;
