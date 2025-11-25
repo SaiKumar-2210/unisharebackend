@@ -57,8 +57,8 @@ const connectDB = async () => {
 
 // --- Mongoose Schemas ---
 const userSchema = new mongoose.Schema({
-    id: { type: String, default: uuidv4, unique: true },
-  email: { type: String, required: true, unique: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },
+    email: { type: String, required: true, unique: true },
   password_hash: { type: String }, // Optional for Clerk users
   name: { type: String, required: true },
   role: { type: String, default: 'user' },
@@ -69,7 +69,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-    id: { type: String, default: () => crypto.randomUUID(), unique: true },  name: { type: String, required: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },
+    name: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
   category: { type: String, required: true },
@@ -82,7 +83,8 @@ const productSchema = new mongoose.Schema({
 });
 
 const cartSchema = new mongoose.Schema({
-    id: { type: String, default: () => crypto.randomUUID(), unique: true },  user_id: { type: String, required: true },
+    id: { type: String, default: () => crypto.randomUUID(), unique: true },  
+    user_id: { type: String, required: true },
   items: [{
     product_id: String,
     quantity: { type: Number, default: 1 }
