@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Razorpay = require('razorpay');
 const cloudinary = require('cloudinary').v2;
-const uuidv4 = require('uuid').v4;
+const uuid = require('uuid');
+const uuidv4 = uuid.v4; 
 const multer = require('multer');
 
 dotenv.config();
